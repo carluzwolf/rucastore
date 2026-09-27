@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RUCA Store — Papelaria, Personalizados e Cultura Pop</title>
+<meta name="description" content="RUCA Store: bottons, adesivos, chaveiros, camisas e produtos personalizados de cultura pop. Crie, personalize e seja você.">
+<meta name="theme-color" content="#4E1F9E">
+
+<!-- Open Graph -->
+<meta property="og:title" content="RUCA Store — Crie. Personalize. Seja você.">
+<meta property="og:description" content="Papelaria, personalizados e cultura pop com a identidade de tinta roxa da RUCA Store.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/banners/og-cover.jpg">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%237C3AED%22/></svg>">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ============================================================
+     TOPBAR
+============================================================ -->
+<div class="topbar">ENVIO PARA TODO O BRASIL • PRODUTOS PERSONALIZADOS • COMPRA SEGURA</div>
+
+<!-- ============================================================
+     HEADER
+============================================================ -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner container">
+    <a href="#topo" class="logo" aria-label="RUCA Store — página inicial">
+      <!-- SUBSTITUA PELO ARQUIVO REAL DA LOGO: assets/logo-ruca.png -->
+      <svg class="logo-mark" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M50 6C72 6 90 22 90 46c0 20-14 34-18 46-2 6-8 6-10 0-2-6-6-10-12-10s-10 4-12 10c-2 6-8 6-10 0-4-12-18-26-18-46C10 22 28 6 50 6z" fill="#7C3AED"/>
+        <circle cx="38" cy="42" r="6" fill="#EFE5FD"/>
+        <circle cx="62" cy="42" r="6" fill="#EFE5FD"/>
+        <path d="M36 58c6 8 22 8 28 0" stroke="#FF7A33" stroke-width="5" stroke-linecap="round" fill="none"/>
+      </svg>
+      <span class="logo-word"><span class="ruca">RUCA</span><span class="store">Store</span></span>
+    </a>
+
+    <form class="search-form" id="searchForm" role="search">
+      <label for="searchInput" class="visually-hidden">Pesquisar produtos</label>
+      <input type="search" id="searchInput" placeholder="Pesquisar produtos... (ex: botton, camisa)" autocomplete="off">
+      <button type="button" class="search-clear" id="searchClearBtn" aria-label="Limpar pesquisa">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+      <button type="submit" aria-label="Buscar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </button>
+      <div class="search-results-panel" id="searchResultsPanel"></div>
+    </form>
+
+    <nav class="main-nav" aria-label="Navegação principal">
+      <a href="#categorias">Categorias</a>
+      <a href="#ofertas">Ofertas</a>
+      <a href="#personalizar">Personalizados</a>
+      <a href="#sobre">Sobre</a>
+    </nav>
+
+    <div class="header-actions">
+      <button class="icon-btn" id="openLoginBtn" aria-label="Entrar na conta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21a8 8 0 10-16 0"/><circle cx="12" cy="8" r="4"/></svg>
+      </button>
+      <button class="icon-btn" data-open-cart aria-label="Abrir carrinho">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h2l2.4 12.4a2 2 0 002 1.6h8.2a2 2 0 002-1.6L21 8H6"/><circle cx="9" cy="21" r="1"/><circle cx="18" cy="21" r="1"/></svg>
+        <span class="badge-count" data-cart-count>0</span>
+      </button>
+      <button class="icon-btn hamburger" id="hamburgerBtn" aria-label="Abrir menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<span id="accountLabel" class="visually-hidden">Entrar</span>
+
+<!-- Menu mobile off-canvas -->
+<nav class="mobile-nav" id="mobileNav" aria-label="Menu mobile">
+  <button class="icon-btn" data-close="mobileNav" style="margin-bottom:20px;" aria-label="Fechar menu">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+  </button>
+  <a href="#categorias" data-close="mobileNav">Categorias</a>
+  <a href="#ofertas" data-close="mobileNav">Ofertas</a>
+  <a href="#personalizar" data-close="mobileNav">Personalizados</a>
+  <a href="#sobre" data-close="mobileNav">Sobre</a>
+  <a href="#favoritos" data-close="mobileNav">Meus favoritos</a>
+</nav>
+
+<div class="overlay" id="overlay"></div>
+
+<main id="topo">
+
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="hero-eyebrow">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3L22 9l-5 4.9L18.2 21 12 17.6 5.8 21 7 13.9 2 9l7.1-.7z"/></svg>
+          Feito à mão, do seu jeito
+        </span>
+        <h1>CRIE. PERSONALIZE. <span>SEJA VOCÊ.</span></h1>
+        <p class="lead">Produtos criativos, papelaria e personalizados feitos para transformar suas ideias em algo único.</p>
+        <div class="hero-ctas">
+          <a href="#produtos" class="btn btn-primary">EXPLORAR PRODUTOS</a>
+          <a href="#personalizar" class="btn btn-secondary">PERSONALIZAR AGORA</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-blob-bg"><div class="hero-shine"></div></div>
+        <div class="hero-sticker hs-1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg> Botton</div>
+        <div class="hero-sticker hs-2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/></svg> Adesivo</div>
+        <div class="hero-sticker hs-3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M2 12h20"/></svg> Chaveiro</div>
+        <div class="hero-sticker hs-4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l16 16M20 4L4 20"/></svg> Camisa</div>
+      </div>
+    </div>
+    <svg class="blob-divider" viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0 20 Q300 60 600 24 T1200 30 V60 H0 Z" fill="var(--bg)"/></svg>
+  </section>
+
+  <!-- ============================================================
+       CATEGORIAS
+  ============================================================ -->
+  <section class="section section-pad" id="categorias">
+    <div class="container section-inner">
+      <div class="section-head">
+        <h2>ENCONTRE SEU FAVORITO</h2>
+        <p>Navegue pelas categorias e descubra o produto perfeito para o seu estilo.</p>
+      </div>
+      <div class="cat-grid">
+        <button class="cat-card" data-goto-category="Bottons">
+          <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></div>
+          <h3>Bottons</h3><span class="cat-tag">Do seu jeito</span>
+        </button>
+        <button class="cat-card" data-goto-category="Adesivos">
+          <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h12l4 4v12H4z"/><path d="M16 4v4h4"/></svg></div>
+          <h3>Adesivos</h3><span class="cat-tag">Cole sua identidade</span>
+        </button>
+        <button class="cat-card" data-goto-category="Chaveiros">
+          <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="4"/><path d="M11 11l9 9M16 16l3-3"/></svg></div>
+          <h3>Chaveiros</h3><span class="cat-tag">Leve com você</span>
+        </button>
+        <button class="cat-card" data-goto-category="Camisas">
+          <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3L4 7v3h3v11h10V10h3V7l-4-4H8z"/></svg></div>
+          <h3>Camisas</h3><span class="cat-tag">Vista sua arte</span>
+        </button>
+        <button class="cat-card" data-goto-category="Canecas">
+          <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h11v13a2 2 0 01-2 2H6a2 2 0 01-2-2V5z"/><path d="M15 8h2a3 3 0 010 6h-2"/></svg></div>
+          <h3>Canecas</h3><span class="cat-tag">Todo dia com estilo</span>
+        </button>
+        <button class="cat-card" data-goto-category="Papelaria">
+          <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5"/></svg></div>
+          <h3>Papelaria</h3><span class="cat-tag">Para organizar ideias</span>
+        </button>
+        <button class="cat-card" data-goto-customizable>
+          <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></div>
+          <h3>Personalizados</h3><span class="cat-tag">100% exclusivo</span>
+        </button>
+        <button class="cat-card" data-goto-category="Cultura Pop">
+          <div class="cat-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.9 6.3L22 9l-5 4.9L18.2 21 12 17.6 5.8 21 7 13.9 2 9l7.1-.7z"/></svg></div>
+          <h3>Cultura Pop</h3><span class="cat-tag">Seu fandom favorito</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BANNERS
+  ============================================================ -->
+  <section class="section-pad" style="padding-top:0;">
+    <div class="container">
+      <div class="banner-grid">
+        <div class="banner banner-1"><div class="blob-decor"></div>
+          <h3>PERSONALIZE DO SEU JEITO</h3>
+          <p>Crie produtos que tenham a sua cara.</p>
+          <button class="btn btn-primary" data-goto-customizable>PERSONALIZAR AGORA</button>
+        </div>
+        <div class="banner banner-2"><div class="blob-decor"></div>
+          <h3>BOTTONS A PARTIR DE R$ 6,90</h3>
+          <button class="btn btn-secondary" data-goto-category="Bottons" style="border-color:#fff;color:#fff;">VER BOTTONS</button>
+        </div>
+        <div class="banner banner-3"><div class="blob-decor"></div>
+          <h3>SEU FANDOM, SUA IDENTIDADE</h3>
+          <p>Produtos inspirados na cultura pop.</p>
+          <button class="btn btn-secondary" data-goto-category="Cultura Pop" style="border-color:#fff;color:#fff;">EXPLORAR</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PRODUTOS
+  ============================================================ -->
+  <section class="section-pad" id="produtos">
+    <div class="container">
+      <div class="section-head">
+        <h2>MAIS QUERIDOS DA RUCA</h2>
+        <p>Produtos de demonstração — perfeitos para mostrar o potencial da sua loja.</p>
+      </div>
+
+      <div class="toolbar">
+        <div class="toolbar-filters" id="categoryChips" aria-label="Filtrar por categoria"></div>
+        <select class="sort-select" id="sortSelect" aria-label="Ordenar produtos">
+          <option value="relevant">Mais relevantes</option>
+          <option value="price-asc">Menor preço</option>
+          <option value="price-desc">Maior preço</option>
+          <option value="bestseller">Mais vendidos</option>
+          <option value="newest">Mais recentes</option>
+        </select>
+      </div>
+      <div class="toolbar-filters" id="quickFilters" style="margin-bottom:26px;">
+        <button class="chip active" data-quick="all">Todos</button>
+        <button class="chip" data-quick="customizable">Personalizáveis</button>
+        <button class="chip" data-quick="bestseller">Mais vendidos</button>
+        <button class="chip" data-quick="new">Novidades</button>
+      </div>
+
+      <div class="product-grid" id="productGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       OFERTAS DA SEMANA
+  ============================================================ -->
+  <section class="section-pad offers-section" id="ofertas">
+    <div class="container">
+      <div class="section-head">
+        <h2>OFERTAS DA SEMANA</h2>
+        <p>Aproveite antes que o tempo acabe — descontos por tempo limitado.</p>
+      </div>
+      <div class="countdown" id="offerCountdown">
+        <div class="cd-box"><strong data-cd-d>00</strong><span>dias</span></div>
+        <div class="cd-box"><strong data-cd-h>12</strong><span>horas</span></div>
+        <div class="cd-box"><strong data-cd-m>47</strong><span>min</span></div>
+        <div class="cd-box"><strong data-cd-s>35</strong><span>seg</span></div>
+      </div>
+      <div class="offer-grid">
+        <div class="offer-card">
+          <img src="" alt="" data-offer-img="1">
+          <div class="offer-info">
+            <h4>Botton Personalizado</h4>
+            <div class="offer-prices"><span class="price-old" style="color:#C9B8ED;">DE R$ 9,90</span><span class="price-now">POR R$ 6,90</span></div>
+            <button class="btn btn-primary btn-sm" data-add-cart="1">ADICIONAR</button>
+          </div>
+        </div>
+        <div class="offer-card">
+          <img src="" alt="" data-offer-img="4">
+          <div class="offer-info">
+            <h4>Kit de Adesivos</h4>
+            <div class="offer-prices"><span class="price-old" style="color:#C9B8ED;">DE R$ 24,90</span><span class="price-now">POR R$ 18,90</span></div>
+            <button class="btn btn-primary btn-sm" data-add-cart="4">ADICIONAR</button>
+          </div>
+        </div>
+        <div class="offer-card">
+          <img src="" alt="" data-offer-img="6">
+          <div class="offer-info">
+            <h4>Chaveiro Acrílico</h4>
+            <div class="offer-prices"><span class="price-old" style="color:#C9B8ED;">DE R$ 19,90</span><span class="price-now">POR R$ 14,90</span></div>
+            <button class="btn btn-primary btn-sm" data-add-cart="6">ADICIONAR</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       DESTAQUE PERSONALIZAÇÃO
+  ============================================================ -->
+  <section class="section-pad customize-section" id="personalizar">
+    <div class="container customize-grid">
+      <div>
+        <h2>VOCÊ IMAGINA. A RUCA CRIA.</h2>
+        <p style="color:var(--text-muted); margin-top:12px; max-width:460px;">Transforme sua arte, seu artista favorito, sua frase ou sua ideia em um produto único.</p>
+        <div class="customize-icons">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/></svg> Bottons</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3L4 7v3h3v11h10V10h3V7l-4-4H8z"/></svg> Camisas</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h11v13a2 2 0 01-2 2H6a2 2 0 01-2-2V5z"/></svg> Canecas</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8" cy="8" r="4"/><path d="M11 11l9 9"/></svg> Chaveiros</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h12l4 4v12H4z"/></svg> Adesivos</span>
+        </div>
+        <button class="btn btn-primary" data-goto-customizable>CRIAR MEU PRODUTO</button>
+      </div>
+      <div class="customize-visual" aria-hidden="true">
+        <div class="customize-blob"></div>
+        <div class="customize-card cc-1"><img src="" alt="" data-offer-img="8"><p>Camisa Personalizada</p></div>
+        <div class="customize-card cc-2"><img src="" alt="" data-offer-img="12"><p>Photocard Personalizado</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       AVALIAÇÕES
+  ============================================================ -->
+  <section class="section-pad" id="sobre">
+    <div class="container">
+      <div class="section-head">
+        <h2>QUEM COMPRA, AMA</h2>
+        <p>Avaliações de demonstração, criadas apenas para ilustrar a experiência da loja.</p>
+      </div>
+      <div class="review-grid">
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="quote">"Ficou exatamente como eu imaginei. A arte ficou linda e chegou rapidinho!"</p>
+          <div class="review-author"><div class="review-avatar">C</div><div><strong>Cliente RUCA</strong><span>Compra verificada (demo)</span></div></div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="quote">"Os bottons são um luxo, qualidade incrível e o atendimento foi super atencioso."</p>
+          <div class="review-author"><div class="review-avatar">C</div><div><strong>Cliente RUCA</strong><span>Compra verificada (demo)</span></div></div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★☆</div>
+          <p class="quote">"Personalizei uma caneca para presente e todo mundo perguntou onde eu comprei."</p>
+          <div class="review-author"><div class="review-avatar">C</div><div><strong>Cliente RUCA</strong><span>Compra verificada (demo)</span></div></div>
+        </div>
+      </div>
+      <p class="review-disclaimer">* Avaliações fictícias, criadas apenas para fins de demonstração deste projeto.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FAVORITOS
+  ============================================================ -->
+  <section class="section-pad" id="favoritos">
+    <div class="container">
+      <div class="section-head">
+        <h2>MEUS FAVORITOS</h2>
+        <p>Os produtos que você salvou com o botão de coração aparecem aqui.</p>
+      </div>
+      <div class="product-grid" id="favoritesGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       NEWSLETTER
+  ============================================================ -->
+  <section class="section-pad" style="padding-top:0;">
+    <div class="container">
+      <div class="newsletter">
+        <h2>ENTRE PARA O UNIVERSO RUCA</h2>
+        <p>Receba novidades, lançamentos e promoções.</p>
+        <form class="newsletter-form" id="newsletterForm">
+          <label for="newsletterEmail" class="visually-hidden">Seu melhor e-mail</label>
+          <input type="email" id="newsletterEmail" placeholder="Seu melhor e-mail" required>
+          <button type="submit" class="btn btn-primary">QUERO RECEBER</button>
+        </form>
+        <p class="newsletter-msg" id="newsletterMsg"></p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-demo-note">ESTE SITE É UMA DEMONSTRAÇÃO DE E-COMMERCE — nenhum pagamento real é processado.</div>
+    <div class="footer-grid">
+      <div class="footer-col footer-brand">
+        <div class="logo">
+          <svg class="logo-mark" viewBox="0 0 100 100" width="40" height="40" aria-hidden="true">
+            <path d="M50 6C72 6 90 22 90 46c0 20-14 34-18 46-2 6-8 6-10 0-2-6-6-10-12-10s-10 4-12 10c-2 6-8 6-10 0-4-12-18-26-18-46C10 22 28 6 50 6z" fill="#9B63F2"/>
+          </svg>
+          <span class="logo-word"><span class="ruca" style="color:#fff;">RUCA</span><span class="store">Store</span></span>
+        </div>
+        <p>Papelaria, personalizados e cultura pop com a identidade de tinta roxa da RUCA Store.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v11a4 4 0 11-4-4"/><path d="M14 3a5 5 0 005 5"/></svg></a>
+          <a href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 11-4-7.5"/><path d="M8 12l2 2 5-5"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>RUCA Store</h4>
+        <ul>
+          <li><a href="#sobre">Sobre nós</a></li>
+          <li><a href="#">Contato</a></li>
+          <li><a href="#">Política de privacidade</a></li>
+          <li><a href="#">Termos de uso</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Compras</h4>
+        <ul>
+          <li><a href="#produtos">Produtos</a></li>
+          <li><a href="#personalizar">Personalizados</a></li>
+          <li><a href="#ofertas">Ofertas</a></li>
+          <li><a href="#categorias">Categorias</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Atendimento</h4>
+        <ul>
+          <li><a href="#">Fale conosco</a></li>
+          <li><a href="#">Dúvidas</a></li>
+          <li><a href="#">Envios</a></li>
+          <li><a href="#">Trocas e devoluções</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 RUCA Store. Todos os direitos reservados.</span>
+      <span>Feito com tinta roxa e muita criatividade.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     TOASTS + BACK TO TOP
+============================================================ -->
+<div class="toast-container" id="toastContainer" aria-live="polite"></div>
+<button class="back-to-top" id="backToTop" aria-label="Voltar ao topo">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
+<!-- ============================================================
+     DRAWER — CARRINHO
+============================================================ -->
+<aside class="drawer" id="cartDrawer" aria-label="Carrinho de compras">
+  <div class="drawer-head">
+    <h3>SEU CARRINHO</h3>
+    <button class="drawer-close" data-close="cartDrawer" aria-label="Fechar carrinho">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="cartDrawerBody"></div>
+  <div class="drawer-foot">
+    <p style="font-size:0.82rem; font-weight:600; margin-bottom:8px;">Tem um cupom?</p>
+    <div class="coupon-row">
+      <input type="text" id="couponInput" placeholder="Ex: RUCA10">
+      <button class="btn btn-ghost btn-sm" id="applyCouponBtn">APLICAR</button>
+    </div>
+    <p class="coupon-msg" id="couponMsg"></p>
+
+    <p style="font-size:0.82rem; font-weight:600; margin-bottom:8px;">Calcular frete</p>
+    <div class="coupon-row">
+      <input type="text" id="cepInput" placeholder="Digite seu CEP">
+      <button class="btn btn-ghost btn-sm" id="calcShippingBtn">CALCULAR</button>
+    </div>
+    <div id="shippingResults" style="margin-bottom:14px;"></div>
+
+    <div id="cartTotals"></div>
+    <button class="btn btn-primary btn-block" id="goCheckoutBtn" style="margin-top:14px;" disabled>FINALIZAR COMPRA</button>
+  </div>
+</aside>
+
+<!-- ============================================================
+     MODAL — DETALHE DO PRODUTO
+============================================================ -->
+<div class="modal modal-wide" id="productModal" role="dialog" aria-modal="true" aria-label="Detalhes do produto">
+  <div class="modal-head">
+    <h3>DETALHES DO PRODUTO</h3>
+    <button class="modal-close" data-close="productModal" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="modal-body" id="productModalBody"></div>
+</div>
+
+<!-- ============================================================
+     MODAL — PERSONALIZAÇÃO
+============================================================ -->
+<div class="modal" id="customizeModal" role="dialog" aria-modal="true" aria-label="Personalizar produto">
+  <div class="modal-head">
+    <h3 id="customizeModalTitle">PERSONALIZAR PRODUTO</h3>
+    <button class="modal-close" data-close="customizeModal" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="modal-body" id="customizeModalBody"></div>
+</div>
+
+<!-- ============================================================
+     MODAL — LOGIN
+============================================================ -->
+<div class="modal" id="loginModal" role="dialog" aria-modal="true" aria-label="Entrar na conta">
+  <div class="modal-head">
+    <h3>ENTRAR</h3>
+    <button class="modal-close" data-close="loginModal" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="modal-body">
+    <form id="loginForm">
+      <div class="field"><label for="loginEmail">E-mail</label><input type="email" id="loginEmail" required></div>
+      <div class="field"><label for="loginPassword">Senha</label><input type="password" id="loginPassword" required></div>
+      <button type="submit" class="btn btn-primary btn-block">ENTRAR</button>
+    </form>
+    <p style="text-align:center; margin-top:14px; font-size:0.85rem;"><a href="#" style="color:var(--purple-600); font-weight:600;">Esqueci minha senha</a></p>
+    <p style="text-align:center; font-size:0.85rem;">Ainda não tem conta? <a href="#" style="color:var(--accent); font-weight:600;">Criar conta</a></p>
+    <p class="demo-note">Login apenas demonstrativo, armazenado no seu navegador.</p>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL — CHECKOUT
+============================================================ -->
+<div class="modal modal-wide" id="checkoutModal" role="dialog" aria-modal="true" aria-label="Finalizar compra">
+  <div class="modal-head">
+    <h3>CHECKOUT — DEMONSTRAÇÃO</h3>
+    <button class="modal-close" data-close="checkoutModal" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="modal-body" id="checkoutModalBody">
+    <div class="checkout-steps">
+      <div class="step active" data-step="1"><span class="num">1</span> Identificação</div>
+      <div class="step" data-step="2"><span class="num">2</span> Entrega</div>
+      <div class="step" data-step="3"><span class="num">3</span> Pagamento</div>
+      <div class="step" data-step="4"><span class="num">4</span> Confirmação</div>
+    </div>
+
+    <div class="checkout-layout">
+      <div class="checkout-panel">
+
+        <!-- Etapa 1 -->
+        <div class="checkout-panel-content" data-step-content="1">
+          <h4 style="margin-bottom:16px;">Dados do cliente</h4>
+          <div class="field"><label for="custName">Nome completo</label><input type="text" id="custName" required></div>
+          <div class="field-row">
+            <div class="field"><label for="custEmail">E-mail</label><input type="email" id="custEmail" required></div>
+            <div class="field"><label for="custPhone">Telefone</label><input type="tel" id="custPhone" required></div>
+          </div>
+          <button class="btn btn-primary" data-checkout-next>CONTINUAR</button>
+        </div>
+
+        <!-- Etapa 2 -->
+        <div class="checkout-panel-content" data-step-content="2" style="display:none;">
+          <h4 style="margin-bottom:16px;">Endereço de entrega</h4>
+          <div class="field-row-3">
+            <div class="field"><label for="custCep">CEP</label><input type="text" id="custCep" required></div>
+            <div class="field"><label for="custNumber">Número</label><input type="text" id="custNumber" required></div>
+            <div class="field"><label for="custComplement">Complemento</label><input type="text" id="custComplement"></div>
+          </div>
+          <div class="field"><label for="custAddress">Endereço</label><input type="text" id="custAddress" required></div>
+          <div class="field-row">
+            <div class="field"><label for="custNeighborhood">Bairro</label><input type="text" id="custNeighborhood" required></div>
+            <div class="field"><label for="custCity">Cidade</label><input type="text" id="custCity" required></div>
+          </div>
+          <div class="field"><label for="custState">Estado</label><input type="text" id="custState" required></div>
+          <div class="shipping-options">
+            <div class="ship-opt selected"><span><strong>Frete calculado no carrinho</strong><br><small>Selecionado anteriormente, ou PAC padrão</small></span><strong>—</strong></div>
+          </div>
+          <div style="display:flex; gap:10px; margin-top:16px;">
+            <button class="btn btn-ghost" data-checkout-prev>VOLTAR</button>
+            <button class="btn btn-primary" data-checkout-next>CONTINUAR</button>
+          </div>
+        </div>
+
+        <!-- Etapa 3 -->
+        <div class="checkout-panel-content" data-step-content="3" style="display:none;">
+          <h4 style="margin-bottom:16px;">Forma de pagamento</h4>
+          <div class="pay-methods">
+            <div class="pay-method selected" data-pay-method="pix"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l4 4-4 4-4-4z"/><path d="M12 22l4-4-4-4-4 4z"/><path d="M2 12l4-4 4 4-4 4z"/><path d="M22 12l-4-4-4 4 4 4z"/></svg> PIX</div>
+            <div class="pay-method" data-pay-method="card"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg> Cartão</div>
+            <div class="pay-method" data-pay-method="boleto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v16M8 4v16M12 4v16M16 4v16M20 4v16"/></svg> Boleto</div>
+          </div>
+
+          <div data-pay-panel="pix">
+            <div class="pix-box">
+              <div class="pix-qr">
+                <svg viewBox="0 0 100 100" fill="currentColor" style="color:var(--purple-700);">
+                  <rect x="5" y="5" width="25" height="25"/><rect x="70" y="5" width="25" height="25"/><rect x="5" y="70" width="25" height="25"/>
+                  <rect x="40" y="10" width="8" height="8"/><rect x="55" y="20" width="8" height="8"/><rect x="40" y="40" width="8" height="8"/>
+                  <rect x="60" y="45" width="10" height="10"/><rect x="80" y="60" width="8" height="8"/><rect x="45" y="80" width="10" height="10"/>
+                  <rect x="70" y="80" width="8" height="8"/><rect x="15" y="45" width="8" height="8"/>
+                </svg>
+              </div>
+              <p style="font-size:0.78rem; color:var(--text-muted); margin-bottom:10px;">Este QR Code é apenas ilustrativo.</p>
+              <p class="pix-code" id="pixCode">00020126360014BR.GOV.BCB.PIX...</p>
+              <button class="btn btn-ghost btn-sm" id="copyPixBtn">Copiar código PIX</button>
+            </div>
+          </div>
+
+          <div data-pay-panel="card" style="display:none;">
+            <div class="card-preview">
+              <div style="font-size:0.85rem; opacity:0.8;">RUCA Store</div>
+              <div class="cp-number" id="cardPreviewNumber">0000 0000 0000 0000</div>
+              <div class="cp-bottom"><span id="cardPreviewName">NOME NO CARTÃO</span><span id="cardPreviewExpiry">MM/AA</span></div>
+            </div>
+            <div class="field"><label for="cardNumber">Número do cartão</label><input type="text" id="cardNumber" placeholder="0000 0000 0000 0000"></div>
+            <div class="field"><label for="cardName">Nome no cartão</label><input type="text" id="cardName"></div>
+            <div class="field-row">
+              <div class="field"><label for="cardExpiry">Validade</label><input type="text" id="cardExpiry" placeholder="MM/AA"></div>
+              <div class="field"><label for="cardCVV">CVV</label><input type="text" id="cardCVV"></div>
+            </div>
+          </div>
+
+          <div data-pay-panel="boleto" style="display:none;">
+            <div class="pix-box">
+              <p style="font-size:0.9rem;">O boleto será gerado apenas para fins de demonstração, com vencimento em 3 dias úteis.</p>
+            </div>
+          </div>
+
+          <p class="demo-note">Modo demonstração — nenhum pagamento será processado.</p>
+          <div style="display:flex; gap:10px; margin-top:16px;">
+            <button class="btn btn-ghost" data-checkout-prev>VOLTAR</button>
+            <button class="btn btn-primary" id="placeOrderBtn">FINALIZAR PEDIDO</button>
+          </div>
+        </div>
+
+        <!-- Etapa 4 -->
+        <div class="checkout-panel-content" data-step-content="4" style="display:none;">
+          <div class="order-confirm">
+            <div class="ok-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+            <h4>PEDIDO DE DEMONSTRAÇÃO REALIZADO</h4>
+            <p style="color:var(--text-muted); margin-top:8px;">Seu pedido foi registrado apenas para fins de demonstração.</p>
+            <p class="order-num" id="orderNumber">#RUCA-2026-0000</p>
+            <button class="btn btn-primary" data-close="checkoutModal">CONTINUAR COMPRANDO</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="checkout-summary">
+        <h3>Resumo do pedido</h3>
+        <div id="checkoutSummaryItems"></div>
+        <div id="checkoutTotals" style="margin-top:12px;"></div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/checkout.js"></script>
+<script src="js/app.js"></script>
+<script>
+  // Preenche as imagens de destaque das seções de ofertas/personalização com base no catálogo
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("[data-offer-img]").forEach(img => {
+      const p = findProduct(Number(img.dataset.offerImg));
+      if (p) { img.src = p.image; img.alt = p.name; }
+    });
+  });
+</script>
+</body>
+</html>
