@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RUCA Store — Papelaria, Personalizados e Cultura Pop</title>
+<meta name="description" content="Loja de papelaria, personalizados e cultura pop.">
+<style>
+:root{
+  --purple:#6b2fb3; --purple-dark:#3a1466; --purple-soft:#efe3ff;
+  --orange:#ff7a1a; --blue:#9fd8f0; --white:#fff; --black:#1a1220;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;font-family:Poppins,system-ui,Arial,sans-serif;background:var(--purple-soft);color:var(--black)}
+@font-face{font-family:'Fredoka';src:local('Arial')}
+h1,h2,h3{font-family:'Poppins',sans-serif;margin:0}
+img{max-width:100%}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
+button{cursor:pointer;font-family:inherit;border:none}
+.topbar{background:var(--purple-dark);color:var(--blue);font-size:12px;text-align:center;padding:6px 8px}
+header{position:sticky;top:0;background:var(--white);z-index:50;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+.headrow{display:flex;align-items:center;gap:16px;padding:12px 20px;max-width:1200px;margin:0 auto}
+.logo{font-weight:800;font-size:22px;color:var(--purple)}
+.logo span{color:var(--orange);font-style:italic}
+.search{flex:1;display:flex;align-items:center;background:var(--purple-soft);border-radius:20px;padding:6px 14px;max-width:420px}
+.search input{border:none;background:none;flex:1;outline:none;padding:6px;font-size:14px}
+nav{display:flex;gap:18px;font-size:14px;font-weight:600}
+.icon-btn{position:relative;background:none;font-size:20px}
+.badge-count{position:absolute;top:-6px;right:-8px;background:var(--orange);color:#fff;font-size:11px;border-radius:10px;padding:1px 6px}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--purple),var(--purple-dark));color:#fff;padding:70px 20px;text-align:center}
+.blob{position:absolute;border-radius:50% 40% 60% 50%/50% 60% 40% 50%;background:rgba(255,255,255,.08);filter:blur(2px)}
+.blob1{width:220px;height:220px;top:-60px;left:-60px}
+.blob2{width:180px;height:180px;bottom:-50px;right:-40px;background:rgba(255,122,26,.25)}
+.hero h1{font-size:clamp(28px,5vw,46px);margin-bottom:14px}
+.hero p{max-width:520px;margin:0 auto 26px;opacity:.9}
+.hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{padding:12px 26px;border-radius:30px;font-weight:700;font-size:14px;transition:.2s}
+.btn-orange{background:var(--orange);color:#fff}
+.btn-orange:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(255,122,26,.4)}
+.btn-outline{background:transparent;border:2px solid #fff;color:#fff}
+section{padding:50px 20px}
+.section-title{text-align:center;font-size:26px;margin-bottom:30px;color:var(--purple-dark)}
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.cat-card{background:#fff;border-radius:18px;padding:20px;text-align:center;box-shadow:0 4px 12px rgba(107,47,179,.08);transition:.25s;border:2px solid transparent}
+.cat-card:hover{transform:translateY(-4px);border-color:var(--blue);box-shadow:0 10px 20px rgba(107,47,179,.15)}
+.cat-emoji{font-size:34px;margin-bottom:8px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:26px}
+.chip{padding:8px 16px;border-radius:20px;background:#fff;border:1px solid var(--purple);color:var(--purple);font-size:13px;font-weight:600}
+.chip.active{background:var(--purple);color:#fff}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 14px rgba(107,47,179,.1);display:flex;flex-direction:column;transition:.2s}
+.card:hover{transform:translateY(-4px)}
+.card-img{height:130px;background:linear-gradient(135deg,var(--purple-soft),var(--blue));display:flex;align-items:center;justify-content:center;font-size:40px;position:relative}
+.badge{position:absolute;top:8px;left:8px;background:var(--orange);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:8px}
+.fav-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.8);border-radius:50%;width:28px;height:28px;font-size:14px}
+.card-body{padding:12px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card-body .cat{font-size:11px;color:#888}
+.card-body h3{font-size:14px}
+.stars{color:var(--orange);font-size:12px}
+.price-row{display:flex;align-items:baseline;gap:8px}
+.old{font-size:12px;color:#999;text-decoration:line-through}
+.price{font-size:17px;font-weight:800;color:var(--purple)}
+.add-btn{margin-top:auto;background:var(--purple);color:#fff;padding:9px;border-radius:10px;font-size:13px;font-weight:700}
+.add-btn:hover{background:var(--purple-dark)}
+.no-results{text-align:center;padding:40px;color:#666;grid-column:1/-1}
+.custom-section{background:linear-gradient(135deg,var(--purple-dark),var(--purple));color:#fff;text-align:center;border-radius:24px;margin:0 20px 50px;padding:50px 20px}
+.custom-section h2{font-size:26px;margin-bottom:10px}
+.newsletter{background:var(--purple-soft);text-align:center}
+.newsletter form{display:flex;justify-content:center;gap:10px;margin-top:16px;flex-wrap:wrap}
+.newsletter input{padding:12px 16px;border-radius:20px;border:1px solid #ccc;min-width:240px}
+footer{background:var(--purple-dark);color:#e8ddff;padding:40px 20px 20px;font-size:14px}
+.foot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:1200px;margin:0 auto}
+.foot-grid h4{color:#fff;margin-bottom:10px}
+.foot-grid a{display:block;opacity:.8;margin-bottom:6px}
+.foot-note{text-align:center;opacity:.6;font-size:12px;margin-top:24px}
+/* Cart drawer */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;z-index:90}
+.overlay.show{display:block}
+.drawer{position:fixed;top:0;right:-380px;width:360px;height:100%;background:#fff;z-index:100;transition:.3s;display:flex;flex-direction:column;box-shadow:-4px 0 20px rgba(0,0,0,.15)}
+.drawer.open{right:0}
+.drawer-head{padding:16px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center}
+.drawer-items{flex:1;overflow-y:auto;padding:12px}
+.cart-item{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid #f0f0f0}
+.cart-item .thumb{width:50px;height:50px;background:var(--purple-soft);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.qty-ctrl{display:flex;align-items:center;gap:8px;margin-top:4px}
+.qty-ctrl button{width:22px;height:22px;border-radius:6px;background:var(--purple-soft);color:var(--purple)}
+.drawer-foot{padding:16px;border-top:1px solid #eee}
+.row-line{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}
+.coupon-row{display:flex;gap:6px;margin:10px 0}
+.coupon-row input{flex:1;padding:8px;border-radius:8px;border:1px solid #ccc}
+/* Modal checkout */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:200;padding:16px}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border-radius:18px;max-width:420px;width:100%;padding:24px;max-height:90vh;overflow-y:auto}
+.modal input,.modal select{width:100%;padding:10px;margin-bottom:10px;border-radius:8px;border:1px solid #ccc}
+.toast-box{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);z-index:300;display:flex;flex-direction:column;gap:8px}
+.toast{background:var(--purple-dark);color:#fff;padding:10px 18px;border-radius:20px;font-size:13px;opacity:0;transform:translateY(10px);transition:.3s}
+.toast.show{opacity:1;transform:translateY(0)}
+@media(max-width:768px){
+  .cats{grid-template-columns:repeat(2,1fr)}
+  .products{grid-template-columns:repeat(2,1fr)}
+  .foot-grid{grid-template-columns:repeat(2,1fr)}
+  nav{display:none}
+  .search{max-width:none}
+  .drawer{width:100%;right:-100%}
+  .headrow{padding:10px 12px;gap:8px}
+  .logo{font-size:18px}
+  section{padding:34px 14px}
+  .hero{padding:44px 16px}
+  .hero-btns{flex-direction:column;align-items:center}
+  .btn{width:100%;max-width:280px;text-align:center}
+}
+@media(max-width:430px){
+  .cats{grid-template-columns:repeat(2,1fr);gap:10px}
+  .products{grid-template-columns:repeat(2,1fr);gap:10px}
+  .card-img{height:110px}
+  .card-img svg{width:34px!important;height:34px!important}
+  .section-title{font-size:21px}
+  .search input{font-size:13px}
+  .icon-btn{font-size:0}
+  .icon{width:22px;height:22px}
+  .modal{border-radius:14px;padding:18px}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:16px}
+}
+@media(max-width:340px){
+  .cats,.products{grid-template-columns:1fr}
+}
+.icon{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;vertical-align:middle}
+.icon-fill{fill:currentColor;stroke:none}
+.drip-divider{display:block;width:100%;height:46px;margin-top:-1px}
+.drip-btn{position:relative}
+.drip-btn::after{content:'';position:absolute;left:18%;bottom:-6px;width:10px;height:12px;background:inherit;border-radius:0 0 50% 50%;opacity:.9}
+.swatch{width:30px;height:30px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1px #ddd;cursor:pointer;display:inline-block}
+.swatch.active{box-shadow:0 0 0 3px var(--orange)}
+.dropzone{border:2px dashed var(--purple);border-radius:12px;padding:16px;text-align:center;font-size:12px;color:var(--purple);background:var(--purple-soft);cursor:pointer}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="topbar">ENVIO PARA TODO O BRASIL • PRODUTOS PERSONALIZADOS • COMPRA SEGURA</div>
+<header>
+  <div class="headrow">
+    <a class="logo" href="#top">
+      <!-- SUBSTITUA PELO ARQUIVO REAL DA LOGO: <img src="/assets/logo-ruca.png" alt="RUCA Store" height="36"> -->
+      <!-- Versão circular para avatar/favicon: /assets/logo-ruca-round.png -->
+      RUCA <span>Store</span>
+    </a>
+    <div class="search">
+      <svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Pesquisar produtos..." aria-label="Pesquisar produtos">
+    </div>
+    <nav><a href="#categorias">Categorias</a><a href="#ofertas">Ofertas</a><a href="#personalizar">Personalizados</a></nav>
+    <button class="icon-btn" onclick="toggleFavPage()" aria-label="Favoritos"><svg class="icon" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg></button>
+    <button class="icon-btn" onclick="openLogin()" aria-label="Entrar"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg></button>
+    <button class="icon-btn" onclick="openCart()" aria-label="Abrir carrinho"><svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1.4"/><circle cx="18" cy="21" r="1.4"/><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 8H6"/></svg><span class="badge-count" id="cartCount">0</span></button>
+  </div>
+  <svg class="drip-divider" viewBox="0 0 1200 46" preserveAspectRatio="none"><path fill="var(--purple)" d="M0,0 H1200 V18 C1100,40 1000,10 900,26 C800,42 700,14 600,30 C500,44 400,16 300,28 C200,40 100,12 0,24 Z"/></svg>
+</header>
+
+<section class="hero" id="top">
+  <div class="blob blob1"></div><div class="blob blob2"></div>
+  <h1>CRIE. PERSONALIZE. SEJA VOCÊ.</h1>
+  <p>Produtos criativos, papelaria e personalizados feitos para transformar suas ideias em algo único.</p>
+  <div class="hero-btns">
+    <a class="btn btn-orange" href="#produtos">EXPLORAR PRODUTOS</a>
+    <a class="btn btn-outline" href="#personalizar">PERSONALIZAR AGORA</a>
+  </div>
+</section>
+
+<section id="categorias">
+  <h2 class="section-title">ENCONTRE SEU FAVORITO</h2>
+  <div class="cats" id="catsGrid"></div>
+</section>
+
+<section id="ofertas" style="background:var(--purple-soft)">
+  <h2 class="section-title">OFERTAS DA SEMANA</h2>
+  <p style="text-align:center;font-weight:700;color:var(--purple-dark)">OFERTA TERMINA EM <span id="countdown" style="color:var(--orange)">00:00:00:00</span></p>
+  <div class="products" id="offersGrid"></div>
+</section>
+
+<section id="produtos">
+  <h2 class="section-title">MAIS QUERIDOS DA RUCA</h2>
+  <div class="filters" id="filterChips"></div>
+  <div class="products" id="productsGrid"></div>
+</section>
+
+<div class="custom-section" id="personalizar">
+  <h2>VOCÊ IMAGINA. A RUCA CRIA.</h2>
+  <p>Transforme sua arte, seu artista favorito, sua frase ou sua ideia em um produto único.</p>
+  <button class="btn btn-orange" onclick="showToast('Personalização em breve — demonstração!')">CRIAR MEU PRODUTO</button>
+</div>
+
+<section>
+  <h2 class="section-title">QUEM COMPRA, AMA</h2>
+  <p style="text-align:center;font-size:12px;color:#999;margin-top:-20px;margin-bottom:20px">Avaliações de demonstração</p>
+  <div class="cats" id="reviewsGrid"></div>
+</section>
+
+<section class="newsletter">
+  <h2 class="section-title">ENTRE PARA O UNIVERSO RUCA</h2>
+  <p>Receba novidades, lançamentos e promoções.</p>
+  <form onsubmit="event.preventDefault();showToast('Cadastro realizado para demonstração!');this.reset()">
+    <input type="email" required placeholder="Seu melhor e-mail">
+    <button class="btn btn-orange" type="submit">QUERO RECEBER</button>
+  </form>
+</section>
+
+<svg class="drip-divider" viewBox="0 0 1200 46" preserveAspectRatio="none" style="margin-bottom:-1px"><path fill="var(--purple-dark)" d="M0,46 H1200 V28 C1100,6 1000,36 900,20 C800,4 700,32 600,16 C500,2 400,30 300,18 C200,4 100,32 0,22 Z"/></svg>
+<footer>
+  <div class="foot-grid">
+    <div><h4>RUCA Store</h4><a href="#">Sobre nós</a><a href="#">Contato</a><a href="#">Política de privacidade</a></div>
+    <div><h4>Compras</h4><a href="#produtos">Produtos</a><a href="#personalizar">Personalizados</a><a href="#ofertas">Ofertas</a></div>
+    <div><h4>Atendimento</h4><a href="#">Fale conosco</a><a href="#">Envios</a><a href="#">Trocas e devoluções</a></div>
+    <div><h4>Redes</h4><a href="https://instagram.com/rucastore" target="_blank" rel="noopener">Instagram @rucastore</a><a href="#">TikTok</a><a href="#">WhatsApp</a></div>
+  </div>
+  <p class="foot-note">© 2026 RUCA Store. Todos os direitos reservados.<br>ESTE SITE É UMA DEMONSTRAÇÃO DE E-COMMERCE.</p>
+</footer>
+
+<!-- Carrinho -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head"><strong style="display:flex;align-items:center;gap:8px;color:var(--purple)"><svg class="icon" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1.4"/><circle cx="18" cy="21" r="1.4"/><path d="M3 4h2l2.4 12.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 8H6"/></svg>SEU CARRINHO</strong><button onclick="closeCart()" aria-label="Fechar" style="background:none;font-size:20px">×</button></div>
+  <div class="drawer-items" id="cartItems"></div>
+  <div class="drawer-foot">
+    <div class="coupon-row"><input id="cepInput" placeholder="Seu CEP" maxlength="9"><button class="btn btn-orange" onclick="calcShipping()">CALCULAR FRETE</button></div>
+    <div id="shippingOptions" style="font-size:12px;margin-bottom:8px"></div>
+    <div class="coupon-row"><input id="couponInput" placeholder="Tem um cupom? (RUCA10)"><button class="btn btn-orange" onclick="applyCoupon()">OK</button></div>
+    <div class="row-line"><span>Subtotal</span><span id="subtotal">R$ 0,00</span></div>
+    <div class="row-line"><span>Desconto</span><span id="discountLine">R$ 0,00</span></div>
+    <div class="row-line"><span>Frete</span><span id="shippingLine">R$ 12,90</span></div>
+    <div class="row-line" style="font-weight:800;font-size:16px"><span>Total</span><span id="totalLine">R$ 0,00</span></div>
+    <button class="btn btn-orange" style="width:100%;margin-top:8px" onclick="openCheckout()">FINALIZAR COMPRA</button>
+  </div>
+</div>
+
+<!-- Checkout -->
+<div class="modal-bg" id="checkoutModal">
+  <div class="modal">
+    <h3 style="margin-bottom:14px">Checkout (demonstração)</h3>
+    <form id="checkoutForm" onsubmit="finishOrder(event)">
+      <input required placeholder="Nome completo">
+      <input required type="email" placeholder="E-mail">
+      <input required placeholder="CEP">
+      <input required placeholder="Endereço e número">
+      <select><option>PIX</option><option>Cartão</option><option>Boleto</option></select>
+      <p style="font-size:12px;color:#888;margin:-4px 0 10px">Modo demonstração — nenhum pagamento será processado.</p>
+      <div style="display:flex;gap:10px">
+        <button type="button" class="btn btn-outline" style="border-color:var(--purple);color:var(--purple);flex:1" onclick="closeCheckout()">Cancelar</button>
+        <button type="submit" class="btn btn-orange" style="flex:1">FINALIZAR PEDIDO</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Login -->
+<div class="modal-bg" id="loginModal">
+  <div class="modal">
+    <h3 style="margin-bottom:14px">Entrar (demonstração)</h3>
+    <form onsubmit="doLogin(event)">
+      <input required type="email" placeholder="E-mail">
+      <input required type="password" placeholder="Senha">
+      <button type="submit" class="btn btn-orange" style="width:100%">ENTRAR</button>
+    </form>
+    <p style="font-size:12px;margin-top:10px"><a href="#" onclick="showToast('Recuperação em breve — demonstração!')">Esqueci minha senha</a> · <a href="#" onclick="showToast('Cadastro em breve — demonstração!')">Criar conta</a></p>
+    <button class="btn btn-outline" style="border-color:var(--purple);color:var(--purple);width:100%;margin-top:6px" onclick="closeLogin()">Fechar</button>
+  </div>
+</div>
+
+<!-- Produto / Personalização -->
+<div class="modal-bg" id="productModal">
+  <div class="modal" id="productModalBody"></div>
+</div>
+
+<div class="toast-box" id="toastBox"></div>
+
+<script>
+const CATS = [
+  {name:'Bottons',emoji:'📌'},{name:'Adesivos',emoji:'✨'},{name:'Chaveiros',emoji:'🔑'},
+  {name:'Camisas',emoji:'👕'},{name:'Canecas',emoji:'☕'},{name:'Papelaria',emoji:'📝'},
+  {name:'Personalizados',emoji:'🎨'},{name:'Cultura Pop',emoji:'⭐'}
+];
+const SIZES=['P','M','G','GG'];
+const COLORS=[{n:'Preto',h:'#1a1220'},{n:'Branco',h:'#ffffff'},{n:'Roxo',h:'#6b2fb3'},{n:'Azul',h:'#9fd8f0'}];
+const PRODUCTS = [
+  {id:1,name:'Botton Personalizado',category:'Bottons',price:8.90,oldPrice:11.90,rating:5,reviews:24,badge:'PERSONALIZÁVEL',customizable:true,material:'Metal + papel fotográfico',size:'4,5cm',prazo:'2 dias úteis',desc:'Personalize com sua arte, foto ou frase favorita. Acabamento brilhante e resistente a arranhões.',care:'Não lavar. Evitar contato prolongado com água.',rev:[{n:'Ana',t:'Ficou exatamente como eu imaginei!'},{n:'Bruno',t:'Qualidade ótima, chegou rápido.'}]},
+  {id:2,name:'Botton Artista Pop',category:'Bottons',price:7.90,rating:5,reviews:18,badge:'MAIS VENDIDO',customizable:false,material:'Metal',size:'4,5cm',prazo:'Envio imediato',desc:'Estampa exclusiva inspirada na cultura pop, ideal para mochilas e jaquetas.',care:'Não lavar.',rev:[{n:'Carla',t:'Lindo, uso todo dia na mochila.'}]},
+  {id:3,name:'Botton Clássico Preto',category:'Bottons',price:6.90,rating:4,reviews:14,badge:'NOVO',customizable:false,material:'Metal',size:'3,8cm',prazo:'Envio imediato',desc:'Design minimalista para combinar com qualquer look.',care:'Não lavar.',rev:[{n:'Diego',t:'Simples e bonito.'}]},
+  {id:4,name:'Kit de Adesivos Fandom',category:'Adesivos',price:18.90,oldPrice:24.90,rating:4,reviews:31,badge:'NOVO',customizable:false,material:'Vinil',size:'Kit com 10',prazo:'Envio imediato',desc:'Kit com 10 adesivos temáticos de alta qualidade, resistentes à água e ao sol.',care:'Lavável, resistente à água.',rev:[{n:'Elisa',t:'As cores são muito vivas!'}]},
+  {id:5,name:'Adesivo Personalizado',category:'Adesivos',price:5.90,rating:5,reviews:12,badge:'PERSONALIZÁVEL',customizable:true,material:'Vinil',size:'8x8cm',prazo:'2 dias úteis',desc:'Envie sua arte e transforme em adesivo resistente à água, perfeito para garrafas e cadernos.',care:'Lavável.',rev:[{n:'Fábio',t:'Perfeito para minha garrafa.'}]},
+  {id:6,name:'Adesivo Holográfico',category:'Adesivos',price:9.90,rating:5,reviews:8,badge:'NOVO',customizable:false,material:'Vinil holográfico',size:'6x6cm',prazo:'Envio imediato',desc:'Efeito holográfico que brilha em diferentes ângulos de luz.',care:'Lavável.',rev:[{n:'Giulia',t:'Brilha muito bonito ao sol!'}]},
+  {id:7,name:'Chaveiro Acrílico',category:'Chaveiros',price:14.90,rating:5,reviews:40,badge:'MAIS VENDIDO',customizable:false,material:'Acrílico',size:'5cm',prazo:'Envio imediato',desc:'Chaveiro em acrílico transparente com estampa colorida e brilho intenso.',care:'Evitar quedas de altura.',rev:[{n:'Hugo',t:'Muito resistente, uso todo dia.'}]},
+  {id:8,name:'Chaveiro Personalizado',category:'Chaveiros',price:16.90,rating:4,reviews:9,badge:'PERSONALIZÁVEL',customizable:true,material:'Acrílico',size:'5cm',prazo:'2 dias úteis',desc:'Crie um chaveiro único com sua foto, arte ou frase gravada.',care:'Evitar quedas.',rev:[{n:'Iara',t:'Fiz com a foto do meu cachorro, amei!'}]},
+  {id:9,name:'Chaveiro de Pelúcia',category:'Chaveiros',price:22.90,rating:5,reviews:16,badge:'NOVO',customizable:false,material:'Pelúcia',size:'8cm',prazo:'Envio imediato',desc:'Chaveiro fofinho e macio, ótimo para presentear.',care:'Lavar à mão.',rev:[{n:'João',t:'Super fofo, minha filha amou.'}]},
+  {id:10,name:'Camisa Personalizada',category:'Camisas',price:59.90,oldPrice:69.90,rating:5,reviews:22,badge:'PERSONALIZÁVEL',customizable:true,material:'100% algodão',size:'P ao GG',prazo:'4 dias úteis',desc:'Camisa 100% algodão com estampa personalizada de alta durabilidade.',care:'Lavar do avesso, água fria.',rev:[{n:'Karen',t:'Tecido ótimo, estampa não desbotou.'}]},
+  {id:11,name:'Camisa Fandom',category:'Camisas',price:54.90,rating:4,reviews:15,badge:'NOVO',customizable:false,material:'100% algodão',size:'P ao GG',prazo:'Envio imediato',desc:'Estampa exclusiva de cultura pop, corte unissex confortável.',care:'Lavar do avesso.',rev:[{n:'Lucas',t:'Caimento perfeito.'}]},
+  {id:12,name:'Camisa Oversized',category:'Camisas',price:64.90,rating:5,reviews:10,badge:'NOVO',customizable:true,material:'Algodão premium',size:'Único (oversized)',prazo:'4 dias úteis',desc:'Modelagem oversized confortável, ideal para o dia a dia.',care:'Lavar do avesso, água fria.',rev:[{n:'Marina',t:'Modelagem incrível, super confortável.'}]},
+  {id:13,name:'Caneca Personalizada',category:'Canecas',price:34.90,rating:5,reviews:27,badge:'PERSONALIZÁVEL',customizable:true,material:'Cerâmica',size:'325ml',prazo:'3 dias úteis',desc:'Caneca de cerâmica com sua arte ou foto, resistente a micro-ondas e lava-louças.',care:'Pode lavar na lava-louças.',rev:[{n:'Nicolas',t:'Ficou show, uso no trabalho.'}]},
+  {id:14,name:'Caneca Térmica',category:'Canecas',price:44.90,rating:4,reviews:7,badge:'NOVO',customizable:false,material:'Aço inox',size:'400ml',prazo:'Envio imediato',desc:'Mantém a bebida quente por até 6 horas.',care:'Lavar à mão.',rev:[{n:'Otávio',t:'Mantém o café quente por horas.'}]},
+  {id:15,name:'Kit Papelaria Completo',category:'Papelaria',price:28.90,rating:4,reviews:11,badge:'NOVO',customizable:false,material:'Papel premium',size:'Kit completo',prazo:'Envio imediato',desc:'Kit com caderno pontilhado, marcadores coloridos e clips decorados.',care:'Manter longe de umidade.',rev:[{n:'Paula',t:'Papel de ótima qualidade.'}]},
+  {id:16,name:'Caderno Personalizado',category:'Papelaria',price:32.90,rating:5,reviews:13,badge:'PERSONALIZÁVEL',customizable:true,material:'Capa dura + papel 90g',size:'A5',prazo:'3 dias úteis',desc:'Caderno com capa personalizada, ideal para presentear.',care:'Manter longe de umidade.',rev:[{n:'Quésia',t:'Capa ficou linda com minha foto.'}]},
+  {id:17,name:'Planner Semanal',category:'Papelaria',price:24.90,rating:4,reviews:6,badge:'NOVO',customizable:false,material:'Papel offset',size:'A5',prazo:'Envio imediato',desc:'Organize sua semana com estilo e criatividade.',care:'Manter longe de umidade.',rev:[{n:'Rafael',t:'Me ajuda a organizar a rotina.'}]},
+  {id:18,name:'Photocard Personalizado',category:'Personalizados',price:6.90,rating:5,reviews:33,badge:'PERSONALIZÁVEL',customizable:true,material:'Papel fotográfico',size:'5,4x8,6cm',prazo:'2 dias úteis',desc:'Photocard com acabamento fosco ou brilhante, sua imagem favorita em alta definição.',care:'Manter em porta-cards.',rev:[{n:'Sara',t:'Qualidade de impressão excelente.'}]},
+  {id:19,name:'Álbum de Photocards',category:'Personalizados',price:29.90,rating:5,reviews:9,badge:'NOVO',customizable:true,material:'PVC + papel',size:'6x9cm (32 páginas)',prazo:'3 dias úteis',desc:'Álbum para guardar e organizar seus photocards favoritos.',care:'Manter fechado.',rev:[{n:'Thiago',t:'Cabe muitos cards, adorei.'}]},
+  {id:20,name:'Squishy Personalizado',category:'Personalizados',price:19.90,rating:4,reviews:5,badge:'PERSONALIZÁVEL',customizable:true,material:'Espuma PU',size:'10cm',prazo:'4 dias úteis',desc:'Squishy macio com sua estampa favorita, ótimo para descontrair.',care:'Não lavar.',rev:[{n:'Ursula',t:'Super macio e fofo.'}]},
+  {id:21,name:'Botton Fandom Edição Especial',category:'Cultura Pop',price:8.90,rating:4,reviews:19,badge:'MAIS VENDIDO',customizable:false,material:'Metal',size:'4,5cm',prazo:'Envio imediato',desc:'Estampa de coleção inspirada na cultura pop, peça de edição limitada.',care:'Não lavar.',rev:[{n:'Vitor',t:'Peça de coleção linda.'}]},
+  {id:22,name:'Poster Colecionável A3',category:'Cultura Pop',price:22.90,rating:5,reviews:8,badge:'NOVO',customizable:false,material:'Papel fotográfico 200g',size:'A3',prazo:'Envio imediato',desc:'Poster de alta definição para decorar seu quarto ou estúdio.',care:'Manter longe do sol direto.',rev:[{n:'Wesley',t:'Cores vibrantes, qualidade top.'}]},
+  {id:23,name:'Pin Set Cultura Pop',category:'Cultura Pop',price:26.90,rating:5,reviews:12,badge:'NOVO',customizable:false,material:'Metal esmaltado',size:'Kit com 5',prazo:'Envio imediato',desc:'Conjunto de pins esmaltados para colecionar e trocar.',care:'Não lavar.',rev:[{n:'Yasmin',t:'Kit lindo, vem bem embalado.'}]},
+  {id:24,name:'Ecobag Personalizada',category:'Personalizados',price:39.90,rating:5,reviews:14,badge:'PERSONALIZÁVEL',customizable:true,material:'Lona 100% algodão',size:'40x35cm',prazo:'3 dias úteis',desc:'Ecobag resistente com sua estampa exclusiva, ótima para o dia a dia.',care:'Lavar à mão.',rev:[{n:'Zeca',t:'Muito resistente e bonita.'}]}
+];
+const ICONS = {
+  Bottons:'<circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+  Adesivos:'<path d="M6 3h9l6 6v6a6 6 0 0 1-6 6H9a6 6 0 0 1-6-6V6a3 3 0 0 1 3-3z"/><path d="M15 3v6h6"/>',
+  Chaveiros:'<circle cx="8" cy="8" r="4"/><path d="M11 11 21 21M16 16l3 3M18 14l3 3"/>',
+  Camisas:'<path d="M8 3 4 7l2 3 2-1v11h8V9l2 1 2-3-4-4-2 2h-4z"/>',
+  Canecas:'<path d="M4 6h11v9a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z"/><path d="M15 8h3a2 2 0 0 1 0 8h-3"/>',
+  Papelaria:'<path d="M5 3h11l3 3v15H5z"/><path d="M9 8h6M9 12h6M9 16h4"/>',
+  Personalizados:'<path d="M12 2 3 7l9 5 9-5-9-5z"/><path d="M3 12l9 5 9-5M3 17l9 5 9-5"/>',
+  'Cultura Pop':'<path d="M12 3l3 6 6 1-4.5 4.3L17.5 21 12 17.7 6.5 21 7.5 14.3 3 10l6-1z"/>'
+};
+function catIcon(cat,size=34){return `<svg class="icon" style="width:${size}px;height:${size}px" viewBox="0 0 24 24">${ICONS[cat]||ICONS['Cultura Pop']}</svg>`;}
+function favIcon(active){return `<svg class="icon" style="width:16px;height:16px;${active?'fill:var(--orange);stroke:var(--orange)':''}" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>`;}
+function isFav(id){return getFavs().includes(id)}
+function getFavs(){try{return JSON.parse(localStorage.getItem('ruca_favs')||'[]')}catch{return[]}}
+const OFFERS=[{...PRODUCTS[0],price:6.90,oldPrice:9.90},{...PRODUCTS[2],price:14.90,oldPrice:18.90},{...PRODUCTS[4],price:11.90,oldPrice:14.90}];
+document.getElementById('offersGrid').innerHTML=OFFERS.map(p=>`<div class="card"><div class="card-img" style="color:var(--purple)"><span class="badge">OFERTA</span>${catIcon(p.category,44)}</div><div class="card-body"><span class="cat">${p.category}</span><h3>${p.name}</h3><div class="price-row"><span class="old">R$ ${p.oldPrice.toFixed(2).replace('.',',')}</span><span class="price">R$ ${p.price.toFixed(2).replace('.',',')}</span></div><button class="add-btn drip-btn" onclick="addToCart(${p.id})">ADICIONAR AO CARRINHO</button></div></div>`).join('');
+const REVIEWS=[{n:'Ana',t:'Ficou exatamente como eu imaginei. A arte ficou linda!'},{n:'Bruno',t:'Chegou rápido e a qualidade surpreendeu.'},{n:'Carla',t:'Já é o terceiro pedido personalizado, sempre perfeito.'},{n:'Diego',t:'Atendimento ótimo e produto igual à foto.'}];
+document.getElementById('reviewsGrid').innerHTML=REVIEWS.map(r=>`<div class="cat-card" style="text-align:left"><span class="stars">★★★★★</span><p style="font-size:13px;margin:8px 0">"${r.t}"</p><small style="color:#999">— ${r.n}, Cliente RUCA</small></div>`).join('');
+// Countdown de ofertas (demonstração)
+let offerEnd=Date.now()+ (12*3600+47*60+35)*1000;
+setInterval(()=>{
+  let diff=Math.max(0,offerEnd-Date.now());
+  const d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);
+  document.getElementById('countdown').textContent=[d,h,m,s].map(x=>String(x).padStart(2,'0')).join(':');
+},1000);
+
+const ICONS_UNUSED_REMOVED = null;
+const catsGrid=document.getElementById('catsGrid');
+
+catsGrid.innerHTML=CATS.map(c=>`<div class="cat-card" role="button" tabindex="0" onclick="filterByCat('${c.name}')"><div style="color:var(--purple);margin-bottom:8px">${catIcon(c.name)}</div><div>${c.name}</div></div>`).join('');
+
+let activeCat='Todos';
+const filterChips=document.getElementById('filterChips');
+function renderChips(){
+  const cats=['Todos',...new Set(PRODUCTS.map(p=>p.category))];
+  filterChips.innerHTML=cats.map(c=>`<button class="chip ${c===activeCat?'active':''}" onclick="filterByCat('${c}')">${c}</button>`).join('');
+}
+function filterByCat(c){activeCat=c;renderChips();renderProducts();}
+renderChips();
+
+function stars(n){return '★'.repeat(n)+'☆'.repeat(5-n);}
+function favIcon(active){return `<svg class="icon" style="width:16px;height:16px;${active?'fill:var(--orange);stroke:var(--orange)':''}" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"/></svg>`;}
+
+function renderProducts(){
+  const q=document.getElementById('searchInput').value.trim().toLowerCase();
+  let list=PRODUCTS.filter(p=>(activeCat==='Todos'||p.category===activeCat)&&(p.name.toLowerCase().includes(q)||p.category.toLowerCase().includes(q)));
+  const grid=document.getElementById('productsGrid');
+  if(list.length===0){grid.innerHTML='<div class="no-results">Nenhum produto encontrado. <button class="chip" onclick="document.getElementById(\'searchInput\').value=\'\';filterByCat(\'Todos\')">Limpar pesquisa</button></div>';return;}
+  grid.innerHTML=list.map(p=>`
+    <div class="card">
+      <div class="card-img" onclick="openProduct(${p.id})" style="cursor:pointer;color:var(--purple)">${p.badge?`<span class="badge">${p.badge}</span>`:''}<button class="fav-btn" onclick="event.stopPropagation();toggleFav(${p.id},this)" aria-label="Favoritar">${favIcon(isFav(p.id))}</button>${catIcon(p.category,44)}</div>
+      <div class="card-body">
+        <span class="cat">${p.category}</span>
+        <h3 onclick="openProduct(${p.id})" style="cursor:pointer">${p.name}</h3>
+        <span class="stars">${stars(p.rating)} <span style="color:#999;font-size:11px">(${p.reviews})</span></span>
+        <div class="price-row">${p.oldPrice?`<span class="old">R$ ${p.oldPrice.toFixed(2).replace('.',',')}</span>`:''}<span class="price">R$ ${p.price.toFixed(2).replace('.',',')}</span></div>
+        <button class="add-btn drip-btn" onclick="p_id=${p.id};${p.customizable?`openProduct(${p.id})`:`addToCart(${p.id})`}">${p.customizable?'PERSONALIZAR':'ADICIONAR AO CARRINHO'}</button>
+      </div>
+    </div>`).join('');
+}
+document.getElementById('searchInput').addEventListener('input',renderProducts);
+renderProducts();
+
+// Favoritos
+function getFavs(){try{return JSON.parse(localStorage.getItem('ruca_favs')||'[]')}catch{return[]}}
+function isFav(id){return getFavs().includes(id)}
+function toggleFav(id,btn){let f=getFavs();if(f.includes(id)){f=f.filter(x=>x!==id)}else{f.push(id)}localStorage.setItem('ruca_favs',JSON.stringify(f));renderProducts();}
+
+// Carrinho
+function getCart(){try{return JSON.parse(localStorage.getItem('ruca_cart')||'[]')}catch{return[]}}
+function saveCart(c){localStorage.setItem('ruca_cart',JSON.stringify(c));renderCart();}
+let couponPct=0;
+function addToCart(id){
+  let cart=getCart();const item=cart.find(i=>i.id===id);
+  if(item){item.qty++}else{cart.push({id,qty:1})}
+  saveCart(cart);showToast('✓ Produto adicionado ao carrinho');
+}
+function changeQty(id,delta){
+  let cart=getCart();const item=cart.find(i=>i.id===id);if(!item)return;
+  item.qty+=delta;if(item.qty<=0){cart=cart.filter(i=>i.id!==id);showToast('Produto removido.')}
+  saveCart(cart);
+}
+function renderCart(){
+  const cart=getCart();
+  const count=cart.reduce((s,i)=>s+i.qty,0);
+  document.getElementById('cartCount').textContent=count;
+  const box=document.getElementById('cartItems');
+  if(cart.length===0){box.innerHTML='<p style="text-align:center;color:#999;padding:30px">Seu carrinho está vazio.</p>';}
+  else{
+    box.innerHTML=cart.map(i=>{
+      const p=PRODUCTS.find(pp=>pp.id===i.id);
+      return `<div class="cart-item"><div class="thumb" style="color:var(--purple)">${catIcon(p.category,26)}</div><div style="flex:1"><div style="font-size:13px;font-weight:600">${p.name}</div>${i.custom?`<div style="font-size:11px;color:#888">${i.custom.size||''} ${i.custom.color||''} ${i.custom.text?'· "'+i.custom.text+'"':''}</div>`:''}<div style="font-size:13px;color:var(--purple)">R$ ${p.price.toFixed(2).replace('.',',')}</div><div class="qty-ctrl"><button onclick="changeQty(${p.id},-1)">−</button>${i.qty}<button onclick="changeQty(${p.id},1)">+</button></div></div></div>`;
+    }).join('');
+  }
+  const subtotal=cart.reduce((s,i)=>{const p=PRODUCTS.find(pp=>pp.id===i.id);return s+p.price*i.qty},0);
+  const discount=subtotal*couponPct;
+  const shipping=cart.length?currentShipping:0;
+  const total=subtotal-discount+shipping;
+  document.getElementById('subtotal').textContent='R$ '+subtotal.toFixed(2).replace('.',',');
+  document.getElementById('discountLine').textContent='- R$ '+discount.toFixed(2).replace('.',',');
+  document.getElementById('shippingLine').textContent='R$ '+shipping.toFixed(2).replace('.',',');
+  document.getElementById('totalLine').textContent='R$ '+total.toFixed(2).replace('.',',');
+}
+function applyCoupon(){
+  const val=document.getElementById('couponInput').value.trim().toUpperCase();
+  if(val==='RUCA10'){couponPct=0.10;showToast('Cupom aplicado! -10%');}
+  else{couponPct=0;showToast('Cupom inválido.');}
+  renderCart();
+}
+function openCart(){document.getElementById('drawer').classList.add('open');document.getElementById('overlay').classList.add('show');}
+function closeCart(){document.getElementById('drawer').classList.remove('open');document.getElementById('overlay').classList.remove('show');}
+renderCart();
+
+// Checkout
+function openCheckout(){
+  if(getCart().length===0){showToast('Seu carrinho está vazio.');return;}
+  document.getElementById('checkoutModal').classList.add('show');
+}
+function closeCheckout(){document.getElementById('checkoutModal').classList.remove('show');}
+function finishOrder(e){
+  e.preventDefault();
+  const orderNum='#RUCA-2026-'+Math.floor(1000+Math.random()*9000);
+  closeCheckout();closeCart();
+  localStorage.removeItem('ruca_cart');
+  couponPct=0;renderCart();
+  showToast('PEDIDO DE DEMONSTRAÇÃO REALIZADO — '+orderNum);
+}
+
+// Produto / Personalização
+function openProduct(id){
+  const p=PRODUCTS.find(x=>x.id===id);
+  const related=PRODUCTS.filter(x=>x.category===p.category&&x.id!==id).slice(0,2);
+  document.getElementById('productModalBody').innerHTML=`
+    <button onclick="closeProduct()" style="float:right;background:none;font-size:18px">×</button>
+    <div style="color:var(--purple);text-align:center;background:radial-gradient(circle at 30% 30%,#fff,var(--purple-soft) 60%,var(--blue) 130%);border-radius:14px;padding:30px 0;box-shadow:inset 0 0 30px rgba(107,47,179,.15)">${catIcon(p.category,64)}</div>
+    <h3 style="margin-top:12px">${p.name}</h3>
+    <span class="stars">${stars(p.rating)} <small style="color:#999">(${p.reviews} avaliações)</small></span>
+    <p style="font-size:13px;color:#555;margin:8px 0">${p.desc}</p>
+    <p style="font-size:12px;color:#888">Material: ${p.material} · Tamanho: ${p.size} · Prazo de produção: ${p.prazo}</p>
+    <p style="font-size:11px;color:#aaa">Cuidados: ${p.care}</p>
+    <div class="price-row" style="margin:8px 0">${p.oldPrice?`<span class="old">R$ ${p.oldPrice.toFixed(2).replace('.',',')}</span>`:''}<span class="price" id="modalPrice">R$ ${p.price.toFixed(2).replace('.',',')}</span></div>
+    ${p.customizable?`
+    <div style="margin:14px 0;background:var(--purple-soft);border-radius:14px;padding:14px">
+      <label style="font-size:12px;font-weight:700">Tamanho</label>
+      <select id="optSize">${SIZES.map(s=>`<option>${s}</option>`).join('')}</select>
+      <label style="font-size:12px;font-weight:700">Cor</label>
+      <div style="display:flex;gap:8px;margin:6px 0 12px" id="colorSwatches">${COLORS.map((c,i)=>`<span class="swatch ${i===0?'active':''}" data-c="${c.n}" style="background:${c.h}" onclick="pickColor(this)"></span>`).join('')}</div>
+      <label style="font-size:12px;font-weight:700">Sua imagem (demonstração)</label>
+      <label class="dropzone" id="dropzoneLabel"><svg class="icon" viewBox="0 0 24 24" style="margin-bottom:4px"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg><br>Clique para enviar sua arte<input type="file" id="optFile" accept="image/*" style="display:none" onchange="document.getElementById('dropzoneLabel').firstChild.nextSibling.nodeValue='Arquivo selecionado: '+this.files[0]?.name"></label>
+      <label style="font-size:12px;font-weight:700">Texto personalizado</label>
+      <input type="text" id="optText" placeholder="Ex: Meu nome, frase, arte...">
+      <label style="font-size:12px;font-weight:700">Observações</label>
+      <input type="text" id="optObs" placeholder="Detalhes extras (opcional)">
+    </div>`:''}
+    <div class="qty-ctrl" style="margin:6px 0"><button onclick="modalQty=Math.max(1,modalQty-1);document.getElementById('modalQty').textContent=modalQty">−</button><span id="modalQty">1</span><button onclick="modalQty++;document.getElementById('modalQty').textContent=modalQty">+</button></div>
+    <button class="btn btn-orange drip-btn" style="width:100%" onclick="addCustomToCart(${p.id})">${p.customizable?'ADICIONAR PERSONALIZADO AO CARRINHO':'ADICIONAR AO CARRINHO'}</button>
+    ${related.length?`<p style="font-size:12px;font-weight:700;margin:14px 0 6px">VOCÊ TAMBÉM PODE GOSTAR</p><div style="display:flex;gap:8px">${related.map(r=>`<div style="flex:1;text-align:center;color:var(--purple);background:var(--purple-soft);border-radius:10px;padding:10px;cursor:pointer" onclick="openProduct(${r.id})">${catIcon(r.category,26)}<div style="font-size:10px;margin-top:4px">${r.name}</div></div>`).join('')}</div>`:''}
+    <p style="font-size:12px;font-weight:700;margin:16px 0 6px">AVALIAÇÕES (demonstração)</p>
+    ${p.rev.map(r=>`<div style="border-top:1px solid #eee;padding:8px 0"><span class="stars">${stars(p.rating)}</span><p style="font-size:12px;margin:4px 0">"${r.t}"</p><small style="color:#999">— ${r.n}, Cliente RUCA</small></div>`).join('')}
+  `;
+  modalQty=1;
+  document.getElementById('productModal').classList.add('show');
+}
+let modalQty=1,p_id=null,selectedColor=COLORS[0].n;
+function pickColor(el){document.querySelectorAll('.swatch').forEach(s=>s.classList.remove('active'));el.classList.add('active');selectedColor=el.dataset.c;}
+function closeProduct(){document.getElementById('productModal').classList.remove('show');}
+function addCustomToCart(id){
+  const p=PRODUCTS.find(x=>x.id===id);
+  let cart=getCart();
+  if(p.customizable){
+    const size=document.getElementById('optSize')?.value,text=document.getElementById('optText')?.value||'';
+    cart.push({id,qty:modalQty,custom:{size,color:selectedColor,text}});
+    showToast('✓ Produto personalizado adicionado ao carrinho');
+  }else{
+    const item=cart.find(i=>i.id===id&&!i.custom);
+    if(item)item.qty+=modalQty;else cart.push({id,qty:modalQty});
+    showToast('✓ Produto adicionado ao carrinho');
+  }
+  saveCart(cart);closeProduct();
+}
+// Login (demonstração via localStorage)
+function openLogin(){
+  if(localStorage.getItem('ruca_user')){showToast('Olá, Cliente!');return;}
+  document.getElementById('loginModal').classList.add('show');
+}
+function closeLogin(){document.getElementById('loginModal').classList.remove('show');}
+function doLogin(e){e.preventDefault();localStorage.setItem('ruca_user','1');closeLogin();showToast('Olá, Cliente!');}
+function toggleFavPage(){
+  const favs=getFavs();
+  if(favs.length===0){showToast('Você ainda não tem favoritos.');return;}
+  const names=favs.map(id=>PRODUCTS.find(p=>p.id===id)?.name).filter(Boolean).join(', ');
+  showToast('Favoritos: '+names);
+}
+// Frete por CEP (simulação)
+function calcShipping(){
+  const cep=document.getElementById('cepInput').value.replace(/\D/g,'');
+  if(cep.length<8){showToast('Digite um CEP válido.');return;}
+  const p2=parseInt(cep.substring(0,2));
+  let pac=12.90;
+  if(p2<=19)pac=12.90;else if(p2<=28)pac=14.90;else if(p2<=39)pac=16.90;else if(p2<=48)pac=18.90;else if(p2<=59)pac=19.90;else if(p2<=69)pac=21.90;else if(p2<=79)pac=22.90;else if(p2<=89)pac=24.90;else pac=26.90;
+  const exp=pac+8;
+  document.getElementById('shippingOptions').innerHTML=`<label><input type="radio" name="ship" checked onchange="setShip(${pac})"> PAC — R$ ${pac.toFixed(2).replace('.',',')} (5–9 dias úteis)</label><br><label><input type="radio" name="ship" onchange="setShip(${exp})"> EXPRESSO — R$ ${exp.toFixed(2).replace('.',',')} (2–5 dias úteis)</label>`;
+  currentShipping=pac;renderCart();showToast('Frete calculado.');
+}
+let currentShipping=12.90;
+function setShip(v){currentShipping=v;renderCart();}
+// Toast
+function showToast(msg){
+  const box=document.getElementById('toastBox');
+  const t=document.createElement('div');t.className='toast';t.textContent=msg;
+  box.appendChild(t);
+  requestAnimationFrame(()=>t.classList.add('show'));
+  setTimeout(()=>{t.classList.remove('show');setTimeout(()=>t.remove(),300)},2600);
+}
+</script>
+</body>
+</html>
